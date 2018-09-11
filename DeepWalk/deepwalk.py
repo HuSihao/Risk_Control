@@ -36,45 +36,47 @@ except AttributeError:
 logger = logging.getLogger(__name__)
 LOGFORMAT = "%(asctime).19s %(levelname)s %(filename)s: %(lineno)s %(message)s"
 
+#generate_batch(walks,batch_size, num_skips,skip_window)
+
 def generate_batch(walks,batch_size, num_skips, skip_window):
-    global data_index
+    #walks must have been depricated.
+    global data_index_i
+    global data_index_j
+
     assert batch_size % num_skips == 0
     assert num_skips <= 2 * skip_window
 
-    data = list()
-    y = list()
-    walks = np.array(walks)
-    for i in xrange(len(walks)):
-        for j in xrange(len(walks[i])):
-            for k in xrange(j-num_skips,j+num_skips+1):
-                if k != j and k >= 0 and k<len(walks[i]):
-                    data.append(walks[i][k])
-                    y.append(walks[i][j])
-    span = 2 * skip_window
-    buffer = collections.deque(maxlen=span)
-    if data_index +span >len(data):
-        data_index = 0
+    batch = np.ndarray(shape=(batch_size), dtype=np.int32)
+    labels = np.ndarray(shape=(batch_size,1), dtype=np.int32)
+    span = 2 * skip_window + 1  # [ skip_window target skip_window ]
+    buffer = collections.deque(maxlen=span)  # pylint: disable=redefined-builtin
 
-    buffer.extend(data[data_index:data_index + span])
-    data_index += span
-    for i in xrange(batch_size // num_skips):
-        context_words = [w for w in xrange(span) if w != skip_window]
+    if data_index_j+span>len(walks[data_index_i]):
+        data_index_j = 0
+        data_index_i +=1
+        if data_index_i > len(walks):
+            data_index_i =  0
 
+    buffer.extend(walks[data_index_i][data_index_j:data_index_j+span])
+    data_index_j+=span
+    for i in range(batch_size // num_skips):
+        context_words = [w for w in range(span) if w!= skip_window]
+        words_to_use = random.sample(context_words, num_skips)
+        for j, context_words in enumerate(words_to_use):
+            batch[i * num_skips + j ] = buffer[skip_window]
+            labels[i * num_skips +j, 0] = buffer[context_words]
 
+        if data_index_j == len(walks[data_index_i]):
+            data_index_j = 0
+            data_index_i +=1
+            if data_index_i
 
+        else:
+            buffer.append(walks[data_index_i][data_index_j])
+            data_index_j+=1
 
-    batch = np.ndarray(shape=(batch_size),dtype = np.int32)
-    labels = np.ndarray(shape=(batch_size,1), dtype= np.int32)
-    span = 2 * skip_window +1
-
-
-
-
-
-    pass
-
-    #return batch,labels
-
+        # Backtrack a little bit to avoid skipping words in the end of a batch
+    return batch, labels
 
 
 def process(args):

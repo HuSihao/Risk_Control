@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -138,10 +139,12 @@ def generate_batch(batch_size, num_skips, skip_window):
   data_index += span
   for i in range(batch_size // num_skips):
     context_words = [w for w in range(span) if w != skip_window]
-    words_to_use = random.sample(context_words, num_skips)
+    words_to_use = random.sample(context_words, num_skips) #4个context_words中抽取两个
     for j, context_word in enumerate(words_to_use):
-      batch[i * num_skips + j] = buffer[skip_window]
+      batch[i * num_skips + j] = buffer[skip_window] #即中心词
       labels[i * num_skips + j, 0] = buffer[context_word]
+
+
     if data_index == len(data):
       buffer.extend(data[0:span])
       data_index = span
@@ -173,6 +176,14 @@ num_sampled = 64  # Number of negative examples to sample.
 valid_size = 16  # Random set of words to evaluate similarity on.
 valid_window = 100  # Only pick dev samples in the head of the distribution.
 valid_examples = np.random.choice(valid_window, valid_size, replace=False)
+
+
+#--------------------------------------------------------------------------------
+num_steps = 100001
+for step in xrange(num_steps):
+  batch_inputs, batch_labels = generate_batch(batch_size, num_skips,skip_window)
+
+#--------------------------------------------------------------------------------
 
 graph = tf.Graph()
 
