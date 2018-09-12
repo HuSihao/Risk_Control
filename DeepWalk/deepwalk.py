@@ -106,8 +106,6 @@ def process(args):
         print("Training...")
 
         vocabulary_size = len(G.nodes())
-
-
         # Step 4: Build and train a skip-gram model.
 
         batch_size = 128
