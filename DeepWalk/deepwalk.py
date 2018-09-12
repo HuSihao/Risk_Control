@@ -38,45 +38,6 @@ LOGFORMAT = "%(asctime).19s %(levelname)s %(filename)s: %(lineno)s %(message)s"
 
 #generate_batch(walks,batch_size, num_skips,skip_window)
 
-def generate_batch(walks,batch_size, num_skips, skip_window):
-    #walks must have been depricated.
-    global data_index_i
-    global data_index_j
-
-    assert batch_size % num_skips == 0
-    assert num_skips <= 2 * skip_window
-
-    batch = np.ndarray(shape=(batch_size), dtype=np.int32)
-    labels = np.ndarray(shape=(batch_size,1), dtype=np.int32)
-    span = 2 * skip_window + 1  # [ skip_window target skip_window ]
-    buffer = collections.deque(maxlen=span)  # pylint: disable=redefined-builtin
-
-    if data_index_j+span>len(walks[data_index_i]):
-        data_index_j = 0
-        data_index_i +=1
-        if data_index_i > len(walks):
-            data_index_i =  0
-
-    buffer.extend(walks[data_index_i][data_index_j:data_index_j+span])
-    data_index_j+=span
-    for i in range(batch_size // num_skips):
-        context_words = [w for w in range(span) if w!= skip_window]
-        words_to_use = random.sample(context_words, num_skips)
-        for j, context_words in enumerate(words_to_use):
-            batch[i * num_skips + j ] = buffer[skip_window]
-            labels[i * num_skips +j, 0] = buffer[context_words]
-
-        if data_index_j == len(walks[data_index_i]):
-            data_index_j = 0
-            data_index_i +=1
-            if data_index_i
-
-        else:
-            buffer.append(walks[data_index_i][data_index_j])
-            data_index_j+=1
-
-        # Backtrack a little bit to avoid skipping words in the end of a batch
-    return batch, labels
 
 
 def process(args):
@@ -298,7 +259,6 @@ def main():
 
   parser.add_argument('--workers', default=1, type=int,
                       help='Number of parallel processes.')
-
 
   args = parser.parse_args()
   numeric_level = getattr(logging, args.log.upper(), None)
