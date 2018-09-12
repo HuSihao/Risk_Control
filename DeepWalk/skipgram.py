@@ -5,9 +5,10 @@ import random
 import tensorflow as tf
 import numpy as np
 import math
-import collections
 import walks as serialized_walks
-
+import collections
+data_index_i = 0
+data_index_j = 0
 
 def generate_batch(walks,batch_size, num_skips, skip_window):
     #walks must have been depricated.
@@ -51,10 +52,12 @@ def generate_batch(walks,batch_size, num_skips, skip_window):
     return batch, labels
 
 
+
 class skipgram(object):
-    def __init__(self,num_steps, batch_size,vocabulary_size,embedding_size,skip_window,num_skips,num_sampled,valid_size,valid_window):
+    def __init__(self,walks,num_steps, batch_size,vocabulary_size,embedding_size,skip_window,num_skips,num_sampled,valid_size,valid_window):
 
         # bind params to class
+        self.walks = walks
         self.num_steps = num_steps
         self.batch_size = batch_size
         self.embedding_size = embedding_size
@@ -126,7 +129,7 @@ class skipgram(object):
                 self.optimizer = tf.train.GradientDescentOptimizer(1.0).minimize(self.loss)
 
             # Compute the cosine similarity between minibatch examples and all embeddings.
-            self.norm = tf.sqrt(tf.reduce_sum(tf.square(self.embeddings), 1, keepdims=True))
+            self.norm = tf.sqrt(tf.reduce_sum(tf.square(self.embeddings), 1, keep_dims=True))
             self.normalized_embeddings = self.embeddings / self.norm
             self.valid_embeddings = tf.nn.embedding_lookup(self.normalized_embeddings,
                                                       self.valid_dataset)
@@ -154,7 +157,7 @@ class skipgram(object):
 
             average_loss = 0
             for step in xrange(self.num_steps):
-                batch_inputs, batch_labels = generate_batch(self.batch_size, self.num_skips,
+                batch_inputs, batch_labels = generate_batch(self.walks,self.batch_size, self.num_skips,
                                                             self.skip_window)
                 feed_dict = {self.train_inputs: batch_inputs, self.train_labels: batch_labels}
 

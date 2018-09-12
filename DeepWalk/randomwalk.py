@@ -2,7 +2,6 @@
 import os
 import sys
 from skipgram import skipgram
-from skipgram import generate_batch
 from argparse import ArgumentParser, FileType, ArgumentDefaultsHelpFormatter
 import logging
 import tensorflow as tf
@@ -13,7 +12,7 @@ import numpy as np
 from six.moves import range
 import psutil
 from multiprocessing import cpu_count
-
+from skipgram import generate_batch
 
 def main():
     parser = ArgumentParser("deepwalk",
@@ -97,7 +96,7 @@ def process(args):
         walks = graphs.build_deepwalk_corpus(G, num_paths=args.number_walks,
                                         path_length=args.walk_length, alpha=0, rand=random.Random(args.seed))
         print("Training...")
-
+    vocabulary_size = len(G.nodes())
     num_steps = 10001
     batch_size = 128
     embedding_size = 128  # Dimension of the embedding vector.
@@ -113,7 +112,7 @@ def process(args):
     valid_window = 100  # Only pick dev samples in the head of the distribution.
     valid_examples = np.random.choice(valid_window, valid_size, replace=False)
 
-    model = skipgram(num_steps, batch_size,embedding_size,skip_window,num_skips,num_sampled,valid_size,valid_window)
+    model = skipgram(walks,num_steps, batch_size,vocabulary_size,embedding_size,skip_window,num_skips,num_sampled,valid_size,valid_window)
     model.train()
 
 if __name__ == '__main__':
