@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1cda91d6-9d7e-4fbb-9883-17674c9d41fb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/DeepWalk.iml" afterPath="$PROJECT_DIR$/.idea/DeepWalk.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/deepwalk.py" afterPath="$PROJECT_DIR$/deepwalk.py" />
-      <change beforePath="$PROJECT_DIR$/randomwalk.py" afterPath="$PROJECT_DIR$/randomwalk.py" />
       <change beforePath="$PROJECT_DIR$/skipgram.py" afterPath="$PROJECT_DIR$/skipgram.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -79,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="randomwalk.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="randomwalk.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/randomwalk.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="396">
@@ -113,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="skipgram.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="skipgram.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/skipgram.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2370">
-              <caret line="179" column="32" lean-forward="true" selection-start-line="179" selection-start-column="32" selection-end-line="179" selection-end-column="32" />
+            <state relative-caret-position="401">
+              <caret line="157" column="65" lean-forward="false" selection-start-line="157" selection-start-column="65" selection-end-line="157" selection-end-column="65" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
               </folding>
@@ -328,6 +323,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="27" y="23" width="1397" height="877" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -341,7 +337,7 @@
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25063938" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2723785" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -459,16 +455,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/skipgram.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2370">
-          <caret line="179" column="32" lean-forward="true" selection-start-line="179" selection-start-column="32" selection-end-line="179" selection-end-column="32" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/deepwalk.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1619">
@@ -483,6 +469,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skipgram.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="157" column="65" lean-forward="false" selection-start-line="157" selection-start-column="65" selection-end-line="157" selection-end-column="65" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
           </folding>

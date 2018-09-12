@@ -52,7 +52,7 @@ def generate_batch(walks,batch_size, num_skips, skip_window):
 
 
 class skipgram(object):
-    def __init__(self,num_steps, batch_size,embedding_size,skip_window,num_skips,num_sampled,valid_size,valid_window):
+    def __init__(self,num_steps, batch_size,vocabulary_size,embedding_size,skip_window,num_skips,num_sampled,valid_size,valid_window):
 
         # bind params to class
         self.num_steps = num_steps
@@ -63,6 +63,7 @@ class skipgram(object):
         self.num_sampled = num_sampled
         self.valid_size = valid_size
         self.valid_window = valid_window
+        self.vocabulary_size = vocabulary_size
         # We pick a random validation set to sample nearest neighbors. Here we limit the
         # validation samples to the words that have a low numeric ID, which by
         # construction are also the most frequent. These 3 variables are used only for
@@ -152,9 +153,9 @@ class skipgram(object):
             print('Initialized')
 
             average_loss = 0
-            for step in xrange(num_steps):
-                batch_inputs, batch_labels = generate_batch(batch_size, num_skips,
-                                                            skip_window)
+            for step in xrange(self.num_steps):
+                batch_inputs, batch_labels = generate_batch(self.batch_size, self.num_skips,
+                                                            self.skip_window)
                 feed_dict = {self.train_inputs: batch_inputs, self.train_labels: batch_labels}
 
                 # Define metadata variable.
