@@ -26,7 +26,7 @@ def generate_batch(walks,batch_size, num_skips, skip_window):
     if data_index_j+span>len(walks[data_index_i]):
         data_index_j = 0
         data_index_i +=1
-        if data_index_i > len(walks):
+        if data_index_i >= len(walks):
             data_index_i =  0
 
     buffer.extend(walks[data_index_i][data_index_j:data_index_j+span])
@@ -137,7 +137,7 @@ class skipgram(object):
                 self.valid_embeddings, self.normalized_embeddings, transpose_b=True)
 
             # Merge all summaries.
-            self.merged = tf.summary.merge_all()
+            #self.merged = tf.summary.merge_all()
 
             # Add variable initializer.
             self.init = tf.global_variables_initializer()
@@ -159,7 +159,7 @@ class skipgram(object):
             for step in xrange(self.num_steps):
                 batch_inputs, batch_labels = generate_batch(self.walks,self.batch_size, self.num_skips,
                                                             self.skip_window)
-                feed_dict = {self.train_inputs: batch_inputs, self.train_labels: batch_labels}
+                feed_dict = {self.train_inputs: batch_inputs-1, self.train_labels: batch_labels-1}
 
                 # Define metadata variable.
                 run_metadata = tf.RunMetadata()
@@ -168,8 +168,8 @@ class skipgram(object):
                 # in the list of returned values for session.run()
                 # Also, evaluate the merged op to get all summaries from the returned "summary" variable.
                 # Feed metadata variable to session for visualizing the graph in TensorBoard.
-                _, summary, loss_val = session.run(
-                    [self.optimizer, self.merged, self.loss],
+                _, loss_val = session.run(
+                    [self.optimizer, self.loss],
                     feed_dict=feed_dict,
                     run_metadata=run_metadata)
                 average_loss += loss_val
@@ -184,7 +184,7 @@ class skipgram(object):
                     if step > 0:
                         average_loss /= 2000
                     # The average loss is an estimate of the loss over the last 2000 batches.
-                    print('Average loss at step ', step, ': ', average_loss)
+                    print 'Average loss at step ', step, ': ', average_loss
                     average_loss = 0
 
             # Save the model for checkpoints.
